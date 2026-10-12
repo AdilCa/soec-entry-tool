@@ -18,6 +18,15 @@ class Server(socketserver.ThreadingTCPServer):
     daemon_threads = True
 
 
+class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
+    """禁止浏览器缓存页面文件：否则更新代码 / 切换分支后新旧 JS 模块混用，页面只剩标题。
+    只影响 HTTP 缓存，不影响 localStorage 中的草稿与记忆候选。"""
+
+    def end_headers(self):
+        self.send_header("Cache-Control", "no-store")
+        super().end_headers()
+
+
 def open_browser():
     try:
         webbrowser.open(URL)
@@ -26,7 +35,7 @@ def open_browser():
 
 
 if __name__ == "__main__":
-    handler = http.server.SimpleHTTPRequestHandler
+    handler = NoCacheHandler
     try:
         httpd = Server(("127.0.0.1", PORT), handler)
     except OSError:

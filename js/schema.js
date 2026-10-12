@@ -1,70 +1,54 @@
-/* 空白对象工厂：所有新条目/子结构的初始形状都在这里定义。 */
+/* 空白对象工厂：所有新条目/子结构的初始形状都在这里定义。
+   工厂接收 prev（同一列表中的上一项，可能为 undefined）：
+   数据行沿用上一行的条件列，电池沿用上一组电池的结构。 */
+import { TABLES, SC_LAYERS, SYM_LAYERS } from "./config.js";
 
-export const blankSymMeasurement = () => ({
+const carry = (row, prev, keys) => {
+  if (prev) keys.forEach((k) => (row[k] = prev[k] ?? row[k]));
+  return row;
+};
+
+export const blankSymRow = (prev) => carry({
   atmosphere: "",
   temperature_C: "NR",
   polarization_resistance_Ohm_cm2: "NR",
-  test_potential: "OCV",
-  notes: "",
-});
+}, prev, TABLES.symRow.carry);
 
-export const blankIV = () => ({
+export const blankSCRow = (prev) => carry({
+  cathode_atmosphere: "",
+  anode_atmosphere: "",
+  temperature_C: "NR",
   voltage_V: "NR",
   current_density_A_cm2: "NR",
-});
+}, prev, TABLES.scRow.carry);
 
-/* _showRates 是界面状态（产率/效率列开关），导出时会被剔除 */
-export const blankSCMeasurement = () => ({
+export const blankStabRow = (prev) => carry({
   cathode_atmosphere: "",
   anode_atmosphere: "",
-  cathode_flow: "NR",
-  anode_flow: "NR",
-  temperature_C: "NR",
-  iv_points: [blankIV()],
-  _showRates: false,
-});
-
-export const blankStability = () => ({
-  cathode_atmosphere: "",
-  anode_atmosphere: "",
-  cathode_flow: "NR",
-  anode_flow: "NR",
   temperature_C: "NR",
   mode: "",
   setpoint: "NR",
   duration_h: "NR",
   degradation_rate_per_h: "NR",
-});
+}, prev, TABLES.stabRow.carry);
 
-/* 对称电池：被测电极即样品本身，故无电极材料字段；
-   电极厚度/缓冲层厚度照常报道。电解质、缓冲层按"材料 | 厚度"配对 */
-export const blankSymCell = () => ({
-  current_collector: "",
+/* 对称电池：被测电极即样品本身，故无电极材料字段 */
+export const blankSymCell = (prev) => carry({
   electrolyte: "",
-  electrolyte_thickness_um: "NR",
   buffer_layer: "NR",
-  buffer_layer_thickness_um: "NR",
-  electrode_thickness_um: "NR",
-  measurements: [blankSymMeasurement()],
-});
+  measurements: [blankSymRow()],
+}, prev, SYM_LAYERS);
 
-/* 结构区按"材料 | 厚度"成对；稳定性默认空（很多文献不做），手动添加 */
-export const blankSingleCell = () => ({
-  current_collector: "",
-  electrode_area_cm2: "NR",
+/* 稳定性默认空（很多文献不做），手动添加 */
+export const blankSingleCell = (prev) => carry({
   cathode: "",
-  cathode_thickness_um: "NR",
   buffer_layer_cathode: "NR",
-  buffer_layer_cathode_thickness_um: "NR",
   electrolyte: "",
-  electrolyte_thickness_um: "NR",
   buffer_layer_anode: "NR",
-  buffer_layer_anode_thickness_um: "NR",
   anode: "",
-  anode_thickness_um: "NR",
-  measurements: [blankSCMeasurement()],
+  measurements: [blankSCRow()],
   stability: [],
-});
+}, prev, SC_LAYERS);
 
 export const blankMaterial = () => ({
   sample_name: "",
@@ -89,10 +73,9 @@ export const blankRoot = () => ({
 export const FACTORIES = {
   material: blankMaterial,
   sym: blankSymCell,
-  symMeas: blankSymMeasurement,
   sc: blankSingleCell,
-  scMeas: blankSCMeasurement,
-  iv: blankIV,
-  stability: blankStability,
+  symRow: blankSymRow,
+  scRow: blankSCRow,
+  stabRow: blankStabRow,
   comp: () => "",
 };

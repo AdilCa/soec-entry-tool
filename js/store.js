@@ -44,17 +44,8 @@ export function allBlockPaths(state) {
   state.materials.forEach((m, mi) => {
     const mb = `materials.${mi}`;
     paths.push(mb);
-    m.symmetric_cell.forEach((s, si) => {
-      const sb = `${mb}.symmetric_cell.${si}`;
-      paths.push(sb);
-      s.measurements.forEach((_, k) => paths.push(`${sb}.measurements.${k}`));
-    });
-    m.single_cell.forEach((c, ci) => {
-      const cb = `${mb}.single_cell.${ci}`;
-      paths.push(cb);
-      c.measurements.forEach((_, k) => paths.push(`${cb}.measurements.${k}`));
-      c.stability.forEach((_, k) => paths.push(`${cb}.stability.${k}`));
-    });
+    m.symmetric_cell.forEach((_, si) => paths.push(`${mb}.symmetric_cell.${si}`));
+    m.single_cell.forEach((_, ci) => paths.push(`${mb}.single_cell.${ci}`));
   });
   return paths;
 }

@@ -15,8 +15,8 @@ a { color: inherit; }
   position: sticky; top: 0; z-index: 20;
 }
 .top .bar {
-  max-width: 960px; margin: 0 auto; padding: 0 32px;
-  height: 60px; display: flex; align-items: center; justify-content: space-between;
+  max-width: 1080px; margin: 0 auto; padding: 0 32px;
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
 }
 .brand { font-size: 15px; font-weight: 600; }
 .brand span { color: var(--muted); font-weight: 400; }
@@ -36,8 +36,8 @@ a { color: inherit; }
 .btn-ghost:hover { border-color: var(--ink); }
 
 /* ── 页面 ─────────────────────────────── */
-.page { max-width: 960px; margin: 0 auto; padding: 48px 32px 96px; }
-.page-title { margin-bottom: 40px; }
-.page-title h1 { font-size: 28px; font-weight: 400; letter-spacing: -0.02em; }
-.page-title p { font-size: 14px; color: var(--muted); margin-top: 6px; }
+.page { max-width: 1080px; margin: 0 auto; padding: 24px 32px 96px; }
+.page-title { margin-bottom: 20px; }
+.page-title h1 { font-size: 24px; font-weight: 400; letter-spacing: -0.02em; }
+.page-title p { font-size: 13px; color: var(--muted); margin-top: 4px; }
 .req-inline { color: var(--error); }

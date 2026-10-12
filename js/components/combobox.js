@@ -2,6 +2,7 @@
    通过事件委托工作，不依赖具体表单结构；只读 memory.js 接口。 */
 import * as memory from "../memory.js";
 import { esc } from "../util.js";
+import { MEMORY_IGNORE } from "../config.js";
 
 let dd = null;        // 下拉元素
 let input = null;     // 当前关联的输入框
@@ -12,7 +13,8 @@ export function initCombobox() {
   document.addEventListener("focusin", onFocusIn);
   document.addEventListener("focusout", onFocusOut);
   document.addEventListener("input", onInput);
-  document.addEventListener("keydown", onKeyDown);
+  /* 捕获阶段：先于表单的表格键盘导航处理，已处理的键 preventDefault 后表单跳过 */
+  document.addEventListener("keydown", onKeyDown, true);
   document.addEventListener("mousedown", onMouseDown);
   window.addEventListener("scroll", close, true);
   window.addEventListener("resize", close);
@@ -32,10 +34,10 @@ function onInput(e) {
 
 function onKeyDown(e) {
   if (!dd || e.target !== input) return;
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+  if ((e.key === "ArrowDown" || e.key === "ArrowUp") && items.length) {
     e.preventDefault();
     const dir = e.key === "ArrowDown" ? 1 : -1;
-    activeIdx = items.length ? (activeIdx + dir + items.length) % items.length : -1;
+    activeIdx = (activeIdx + dir + items.length) % items.length;
     paint();
   } else if (e.key === "Enter" && activeIdx >= 0) {
     e.preventDefault();
@@ -77,7 +79,9 @@ function open(el) {
 
 function refresh() {
   const key = input.dataset.memory;
-  const q = input.value.trim().toLowerCase();
+  /* 框里是 NR / none 等占位值时视为未输入，展示全部候选 */
+  const raw = input.value.trim();
+  const q = MEMORY_IGNORE.has(raw) ? "" : raw.toLowerCase();
   items = memory.list(key).filter((v) => !q || v.toLowerCase().includes(q));
   activeIdx = -1;
   paint();
@@ -86,13 +90,13 @@ function refresh() {
 
 function paint() {
   if (!dd) return;
-  dd.innerHTML = items.length
-    ? items.map((v, i) => `
+  /* 无候选时不显示：表格里空下拉会遮住下一行单元格 */
+  dd.hidden = !items.length;
+  dd.innerHTML = items.map((v, i) => `
       <div class="combo-item${i === activeIdx ? " active" : ""}" data-v="${esc(v)}">
         <span class="v">${esc(v)}</span>
         <button class="x" title="删除此条记忆" tabindex="-1">×</button>
-      </div>`).join("")
-    : `<div class="combo-empty">暂无记忆，导出后自动积累</div>`;
+      </div>`).join("");
   if (activeIdx >= 0 && dd.children[activeIdx]) {
     dd.children[activeIdx].scrollIntoView({ block: "nearest" });
   }

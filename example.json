@@ -10,87 +10,45 @@
       "sample_name": "SFM",
       "composition": ["Sr2Fe1.5Mo0.5O6-d"],
       "synthesis_method": "sol-gel",
-      "modification_method": "exsolution",
-      "symmetric_cell": [
-        {
-          "electrolyte": "LSGM",
-          "electrolyte_thickness_um": 300,
-          "buffer_layer": "GDC",
-          "buffer_layer_thickness_um": 2,
-          "electrode_thickness_um": 20,
-          "measurements": [
-            {
-              "atmosphere": "pure CO2",
-              "temperature_C": 800,
-              "polarization_resistance_Ohm_cm2": 0.08,
-              "test_potential": "OCV",
-              "notes": ""
-            }
-          ]
-        }
-      ],
-      "single_cell": [
-        {
-          "current_collector": "Ag wire",
-          "electrode_area_cm2": 0.5,
-          "cathode": "SFM",
-          "cathode_thickness_um": 20,
-          "buffer_layer_cathode": "GDC",
-          "buffer_layer_cathode_thickness_um": 2,
-          "electrolyte": "LSGM",
-          "electrolyte_thickness_um": 300,
-          "buffer_layer_anode": "none",
-          "buffer_layer_anode_thickness_um": "none",
-          "anode": "LSM",
-          "anode_thickness_um": 15,
-          "measurements": [
-            {
-              "cathode_atmosphere": "1:1 CO-CO2",
-              "anode_atmosphere": "air",
-              "cathode_flow": 50,
-              "anode_flow": 100,
-              "temperature_C": 800,
-              "iv_points": [
-                {
-                  "voltage_V": 1.2,
-                  "current_density_A_cm2": 0.8,
-                  "co_production_ml_min_cm2": 5.5,
-                  "faradaic_efficiency_percent": 98
-                },
-                {
-                  "voltage_V": 1.3,
-                  "current_density_A_cm2": 1.2,
-                  "co_production_ml_min_cm2": 8.1,
-                  "faradaic_efficiency_percent": 97
-                }
-              ]
-            },
-            {
-              "cathode_atmosphere": "1:1 CO-CO2",
-              "anode_atmosphere": "air",
-              "cathode_flow": 50,
-              "anode_flow": 100,
-              "temperature_C": 750,
-              "iv_points": [
-                { "voltage_V": 1.3, "current_density_A_cm2": 0.6 }
-              ]
-            }
-          ],
-          "stability": [
-            {
-              "cathode_atmosphere": "1:1 CO-CO2",
-              "anode_atmosphere": "air",
-              "cathode_flow": 50,
-              "anode_flow": 100,
-              "temperature_C": 800,
-              "mode": "galvanostatic",
-              "setpoint": "0.5 A/cm2",
-              "duration_h": 100,
-              "degradation_rate_per_h": 0.0012
-            }
-          ]
-        }
-      ]
+      "modification_method": "exsolution"
+    }
+  ],
+  "symmetric_cell_records": [
+    {
+      "sample_name": "SFM", "electrolyte": "LSGM", "buffer_layer": "GDC",
+      "atmosphere": "pure CO2", "temperature_C": 800, "polarization_resistance_Ohm_cm2": 0.08
+    },
+    {
+      "sample_name": "SFM", "electrolyte": "LSGM", "buffer_layer": "GDC",
+      "atmosphere": "pure CO2", "temperature_C": 750, "polarization_resistance_Ohm_cm2": 0.21
+    }
+  ],
+  "single_cell_records": [
+    {
+      "sample_name": "SFM", "cathode": "SFM", "buffer_layer_cathode": "GDC", "electrolyte": "LSGM",
+      "buffer_layer_anode": "none", "anode": "LSM",
+      "cathode_atmosphere": "1:1 CO-CO2", "anode_atmosphere": "air", "temperature_C": 800,
+      "voltage_V": 1.2, "current_density_A_cm2": 0.8
+    },
+    {
+      "sample_name": "SFM", "cathode": "SFM", "buffer_layer_cathode": "GDC", "electrolyte": "LSGM",
+      "buffer_layer_anode": "none", "anode": "LSM",
+      "cathode_atmosphere": "1:1 CO-CO2", "anode_atmosphere": "air", "temperature_C": 800,
+      "voltage_V": 1.3, "current_density_A_cm2": 1.2
+    },
+    {
+      "sample_name": "SFM", "cathode": "SFM", "buffer_layer_cathode": "GDC", "electrolyte": "LSGM",
+      "buffer_layer_anode": "none", "anode": "LSM",
+      "cathode_atmosphere": "1:1 CO-CO2", "anode_atmosphere": "air", "temperature_C": 750,
+      "voltage_V": 1.3, "current_density_A_cm2": 0.6
+    }
+  ],
+  "stability_records": [
+    {
+      "sample_name": "SFM", "cathode": "SFM", "buffer_layer_cathode": "GDC", "electrolyte": "LSGM",
+      "buffer_layer_anode": "none", "anode": "LSM",
+      "cathode_atmosphere": "1:1 CO-CO2", "anode_atmosphere": "air", "temperature_C": 800,
+      "mode": "galvanostatic", "setpoint": "0.5 A/cm2", "duration_h": 100, "degradation_rate_per_h": 0.0012
     }
   ]
 }

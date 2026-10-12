@@ -6,7 +6,8 @@ import { renderForm } from "./render/index.js";
 import { openModal, closeModal } from "./components/modal.js";
 import { esc, toast } from "./util.js";
 
-const LS_KEY = "soec-entry-drafts-v1";
+/* v2：界面状态改为表格化结构，v1 草稿与之不兼容 */
+const LS_KEY = "soec-entry-drafts-v2";
 const CAP = 20;
 
 let currentId = null; // 当前表单对应的草稿 id

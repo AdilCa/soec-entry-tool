@@ -16,7 +16,6 @@
   border: none; background: none; cursor: pointer; font-family: inherit;
 }
 .combo-item .x:hover { color: var(--error); }
-.combo-empty { padding: 8px 12px; font-size: 12px; color: var(--muted); }
 
 /* ── 弹层 ─────────────────────────────── */
 .modal-backdrop {

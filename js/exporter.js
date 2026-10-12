@@ -1,8 +1,9 @@
-/* 导出：数值转换、JSON 高亮、检查清单渲染、下载/复制。 */
+/* 导出：转扁平记录、数值转换、JSON 高亮、检查清单渲染、下载/复制。 */
 import { NUMERIC } from "./config.js";
 import { store } from "./store.js";
 import { esc, toast } from "./util.js";
 import { validateAll, describePath } from "./validator.js";
+import { toRecords } from "./records.js";
 import { commitFromState } from "./memory.js";
 import { discardCurrent } from "./drafts.js";
 import { openModal } from "./components/modal.js";
@@ -25,7 +26,7 @@ function toExport(node, key) {
   return node;
 }
 
-export const exportJSON = () => JSON.stringify(toExport(store.state), null, 2);
+export const exportJSON = () => JSON.stringify(toExport(toRecords(store.state)), null, 2);
 
 /* ── 高亮：NR 单独着色（灰斜体），便于导出前扫查。
    在原始文本上匹配、分段转义，避免引号被转义后字符串匹配失败。 ── */
@@ -72,7 +73,7 @@ export function openExportModal() {
   if (result.blocking) {
     store.errors = result.errors;
     window.dispatchEvent(new CustomEvent("form:rerender"));
-    toast("存在未填的必填项，已标红");
+    toast("必填项缺失或有误，已标红");
     return;
   }
   store.errors = {};

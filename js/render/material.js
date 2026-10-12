@@ -24,7 +24,7 @@ function renderMaterial(m, mi, total) {
   const counts = `对称电池 ${m.symmetric_cell.length} · 单电池 ${m.single_cell.length}`;
   return `
   <div class="block${collapsed ? " collapsed" : ""}">
-    <div class="block-head">
+    <div class="block-head" data-collapse="${base}">
       <span class="t">${collapseBtn(base)}<span class="block-name">${esc(title)}</span>${
         collapsed ? `<span class="collapsed-summary">${counts}</span>` : ""
       }</span>

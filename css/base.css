@@ -41,3 +41,25 @@ a { color: inherit; }
 .page-title h1 { font-size: 24px; font-weight: 400; letter-spacing: -0.02em; }
 .page-title p { font-size: 13px; color: var(--muted); margin-top: 4px; }
 .req-inline { color: var(--error); }
+
+/* 标题下的工具行：操作说明（默认收起）+ 数值对齐切换 */
+.page-tools {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 24px; margin-top: 6px;
+}
+.help summary {
+  font-size: 13px; color: var(--muted); cursor: pointer; width: fit-content;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.help summary:hover { color: var(--ink); }
+.seg { display: flex; align-items: center; flex-shrink: 0; font-size: 12px; }
+.seg-lab { color: var(--muted); margin-right: 8px; }
+.seg button {
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+  font-family: inherit; font-size: 12px; padding: 3px 10px; cursor: pointer;
+  margin-left: -1px; transition: color .15s ease-out;
+}
+.seg button:first-of-type { border-radius: var(--radius) 0 0 var(--radius); }
+.seg button:last-of-type { border-radius: 0 var(--radius) var(--radius) 0; }
+.seg button:hover { color: var(--ink); }
+.seg button.on { color: var(--bg); background: var(--ink); border-color: var(--ink); position: relative; }

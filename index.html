@@ -30,8 +30,19 @@
 <main class="page">
   <div class="page-title">
     <h1 class="serif">文献录入</h1>
-    <p>未报道保持 <span class="mono">NR</span>；缓冲层未使用填 <span class="mono">none</span>。带 <span class="req-inline">*</span> 为必填，字段值请使用英文。</p>
-    <p>数据表：<span class="mono">Enter</span> 下一行（末行自动新增并沿用条件），<span class="mono">Shift+Enter</span> / <span class="mono">↑↓</span> 上下移动，<span class="mono">Tab</span> 横向移动；可直接粘贴 Excel / WebPlotDigitizer 的多行多列数据。</p>
+    <div class="page-tools">
+      <details class="help">
+        <summary>操作说明</summary>
+        <p>未报道保持 <span class="mono">NR</span>；缓冲层未使用填 <span class="mono">none</span>。带 <span class="req-inline">*</span> 为必填，字段值请使用英文。</p>
+        <p>数据表：<span class="mono">Enter</span> 下一行（末行自动新增并沿用条件），<span class="mono">Shift+Enter</span> / <span class="mono">↑↓</span> 上下移动，<span class="mono">Tab</span> 横向移动；可直接粘贴 Excel / WebPlotDigitizer 的多行多列数据。</p>
+      </details>
+      <div class="seg" id="alignCtl" role="group" aria-label="数值对齐方式">
+        <span class="seg-lab">数值对齐</span>
+        <button data-align="left">左</button>
+        <button data-align="right">右</button>
+        <button data-align="decimal">小数点</button>
+      </div>
+    </div>
   </div>
   <div id="form"></div>
 </main>

@@ -51,6 +51,12 @@ export const TABLES = {
   },
 };
 
+/* 数据表列宽权重（未列出的数值列为 1）：气氛等长文本宽，数值窄 */
+export const COL_WEIGHT = {
+  atmosphere: 2.4, cathode_atmosphere: 2.4, anode_atmosphere: 2.4,
+  mode: 1.7, setpoint: 1.5,
+};
+
 /* 单电池结构层（构型链顺序） */
 export const SC_LAYERS = ["cathode", "buffer_layer_cathode", "electrolyte", "buffer_layer_anode", "anode"];
 export const SYM_LAYERS = ["electrolyte", "buffer_layer"];

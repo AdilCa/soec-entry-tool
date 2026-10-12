@@ -28,6 +28,7 @@
 | `js/exporter.js` | 转记录、数值转换、剔除 `_` 前缀键、JSON 高亮、检查清单、下载 |
 | `js/memory.js` | localStorage 记忆候选；只在导出确认时 `commitFromState` |
 | `js/drafts.js` | 草稿箱：输入防抖 500ms 自动存 localStorage，多草稿（上限 20），启动时若有草稿自动弹出 |
+| `js/prefs.js` | 显示偏好（数值列对齐：左 / 右 / 小数点），`alignDecimals` 在每次渲染后与数值格输入时重算补位 |
 | `js/floatbar.js` | 右下角浮动按钮（回顶 / 草稿箱 / 折叠全部 / 展开全部） |
 | `js/render/*` | 无状态渲染器；`index.js` 是装配入口（含焦点恢复） |
 | `js/components/*` | combobox（记忆下拉）、modal（弹层），均与表单结构解耦 |
@@ -63,6 +64,7 @@
 
 ### 6. 折叠
 - `store.collapsed` 是块路径的 Set（材料、对称电池、单电池三级）；`.collapsed` class 驱动一切
+- 整条 `.block-head[data-collapse]` 都是点击区域；click 处理里先判 `[data-action]`，保证标题栏内的删除按钮不触发折叠
 - 块内容**始终渲染**，包在 `.block-body > .body-in` 里，靠 `grid-template-rows: 1fr→0fr` 过渡动画收起——新增可折叠块必须保留这层包装
 - 折叠三角是 CSS 绘制的 `.tri`（**不要用字符** ▸▾，中文字体里字形过小）
 - 电池块标题后常显构型链 + 行数：`scConfig` / `symConfig`（空值、none、NR 一律省略）
@@ -84,11 +86,14 @@
 - 单一 accent 绿仅用于 JSON 数字高亮；错误红 `--error`
 - 必填星号 `.req` 全局红色
 - 衬线仅用于页面大标题和材料块标题（`.block-name`）
+- 控件 class：`nr`（值为 NR，灰显；input 事件中同步切换）、`num`（NUMERIC 列，对齐方式由 `<html data-num-align>` 驱动）
+- 表格列宽：`table-layout: fixed` + colgroup 百分比，权重见 config.js 的 `COL_WEIGHT`
 
 ## 已知约束
 
 - ES Modules 要求 HTTP 环境；`file://` 直接打开会失败
 - `importState` 直接接管状态（不做深合并），缺键靠渲染层 `?? ""` 容错
 - 不支持导入旧版（main 分支）嵌套格式的 JSON
-- localStorage 存两类数据：记忆候选（`soec-entry-memory-v1`）、草稿（`soec-entry-drafts-v2`，界面结构变更后由 v1 升级）
+- localStorage 存三类数据：记忆候选（`soec-entry-memory-v1`）、草稿（`soec-entry-drafts-v2`，界面结构变更后由 v1 升级）、显示偏好（`soec-entry-prefs-v1`）
+- `start.py` 发送 `Cache-Control: no-store`，避免更新代码后浏览器混用新旧 JS 模块（表现为页面只剩标题）
 - 无自动化测试框架；改动后用本地 http.server + 浏览器手测（表格键盘导航与粘贴、折叠、草稿保存/恢复、导入导出往返、导出检查清单五个场景必测）

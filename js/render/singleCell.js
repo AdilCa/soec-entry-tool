@@ -21,7 +21,7 @@ function renderCell(c, mi, ci) {
   const counts = `${c.measurements.length} 行 I–V${c.stability.length ? ` · ${c.stability.length} 行稳定性` : ""}`;
   return `
   <div class="block inset${collapsed ? " collapsed" : ""}">
-    <div class="block-head">
+    <div class="block-head" data-collapse="${base}">
       <span class="t">${collapseBtn(base)}单电池 ${ci + 1}<span class="collapsed-summary">${
         scConfig(c)} · ${counts}</span></span>
       ${removeBtn(base)}

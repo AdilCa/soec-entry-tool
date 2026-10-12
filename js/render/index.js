@@ -4,12 +4,14 @@
    focusPath 指向一个块（非控件）时聚焦块内第一个控件。 */
 import { renderMeta } from "./meta.js";
 import { renderMaterials } from "./material.js";
+import { alignDecimals } from "../prefs.js";
 
 export function renderForm(focusPath) {
   const form = document.getElementById("form");
   const active = document.activeElement;
   const target = focusPath ?? (form.contains(active) ? active.dataset.path : null);
   form.innerHTML = renderMeta() + renderMaterials();
+  alignDecimals(form);
   if (!target) return;
   const el =
     form.querySelector(`:is(input, select, textarea)[data-path="${target}"]`) ||

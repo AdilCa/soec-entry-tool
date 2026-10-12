@@ -69,7 +69,9 @@ python3 -m http.server 8000
 
 ## 浏览辅助
 
-- 材料、电池块可折叠；电池块标题常显构型链（如 `SFM / GDC / LSGM / LSM`，none/NR 的缓冲层自动省略）与行数
+- 值为 `NR` 的格子灰色显示，便于扫查未填项
+- 标题下方可切换数值列对齐方式：左对齐 / 右对齐 / 小数点对齐（记在浏览器中）；操作说明默认收起
+- 材料、电池块可折叠（点击整条标题栏即可）；电池块标题常显构型链（如 `SFM / GDC / LSGM / LSM`，none/NR 的缓冲层自动省略）与行数
 - 右下角浮动按钮：回到顶部（滚动后浮现）、草稿箱、折叠全部、展开全部
 
 ## 导入
@@ -80,7 +82,7 @@ python3 -m http.server 8000
 ## 数据说明
 
 - 表单内容通过草稿箱保护（自动保存），但草稿只是保险——完成录入后请及时导出
-- localStorage 存两类数据：记忆候选（键 `soec-entry-memory-v1`）与草稿（键 `soec-entry-drafts-v2`），均不上传
+- localStorage 存三类数据：记忆候选（键 `soec-entry-memory-v1`）、草稿（键 `soec-entry-drafts-v2`）、显示偏好（键 `soec-entry-prefs-v1`），均不上传
 - 建议建立项目根目录集中管理导出文件（如 `soec-db/entries/`，文件名即 DOI），配合 git 追踪
 
 ## 文件结构

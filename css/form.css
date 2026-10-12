@@ -21,6 +21,10 @@
               border-color .22s ease-out;
 }
 .block.collapsed > .block-head { margin-bottom: 0; padding-bottom: 0; border-bottom-color: transparent; }
+/* 整条标题栏可点击折叠：悬停时三角与标题加深提示 */
+.block-head[data-collapse] { cursor: pointer; user-select: none; }
+.block-head[data-collapse]:hover .collapse,
+.block-head[data-collapse]:hover .t { color: var(--ink); }
 .block-head .t { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; min-width: 0; }
 .block-head .t span { color: var(--muted); font-weight: 400; }
 .block-head .t .block-name {
@@ -104,6 +108,14 @@ input[type="text"]:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(23, 23, 23, .05);
 }
 input.invalid, select.invalid { border-color: var(--error); }
+/* 未报道值灰显，便于扫查哪些格子还没填 */
+input.nr { color: var(--muted); }
+/* 数值列对齐方式由 <html data-num-align> 切换（prefs.js） */
+input.num { font-variant-numeric: tabular-nums; }
+[data-num-align="right"] input.num { text-align: right; }
+[data-num-align="decimal"] input.num { text-align: right; font-family: var(--font-mono); }
+[data-num-align="right"] .grid th.num,
+[data-num-align="decimal"] .grid th.num { text-align: right; padding-right: 10px; }
 textarea { resize: vertical; min-height: 56px; }
 .field-error { font-size: 12px; color: var(--error); margin-top: 4px; }
 
@@ -117,16 +129,16 @@ textarea { resize: vertical; min-height: 56px; }
 .grid-title { font-size: 12px; font-weight: 600; margin: 14px 0 6px; }
 .grid-wrap { margin-top: 10px; overflow-x: auto; }
 .grid-title + .grid-wrap { margin-top: 0; }
-.grid { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
+.grid { width: 100%; border-collapse: collapse; margin-bottom: 6px; table-layout: fixed; }
+.grid .row-x-col { width: 28px; }
 .grid th {
   font-size: 12px; font-weight: 400; color: var(--muted); text-align: left;
   padding: 0 4px 4px; white-space: nowrap;
 }
 .grid td { padding: 2px; }
 .grid td input[type="text"], .grid td select {
-  padding: 4px 8px; font-size: 13px; border-radius: 4px; min-width: 72px;
+  padding: 4px 8px; font-size: 13px; border-radius: 4px;
 }
-.grid td select { min-width: 128px; }
 .grid .row-x { width: 24px; text-align: center; }
 
 @media (max-width: 720px) {

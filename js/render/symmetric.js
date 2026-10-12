@@ -20,7 +20,7 @@ function renderSymCell(s, mi, si) {
   const sampleName = store.state.materials[mi].sample_name.trim() || `材料 ${mi + 1}`;
   return `
   <div class="block inset${collapsed ? " collapsed" : ""}">
-    <div class="block-head">
+    <div class="block-head" data-collapse="${base}">
       <span class="t">${collapseBtn(base)}对称电池 ${si + 1}<span class="collapsed-summary">${
         symConfig(s, sampleName)} · ${s.measurements.length} 行</span></span>
       ${removeBtn(base)}

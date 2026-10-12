@@ -8,6 +8,7 @@ import { validateField } from "./validator.js";
 import { openExportModal } from "./exporter.js";
 import { isRecordsFormat, fromRecords } from "./records.js";
 import { initFloatbar } from "./floatbar.js";
+import { initPrefs, alignDecimals } from "./prefs.js";
 import { initDrafts, scheduleSave, detachCurrent } from "./drafts.js";
 import { toast } from "./util.js";
 
@@ -18,6 +19,8 @@ formEl.addEventListener("input", (e) => {
   const p = e.target.dataset.path;
   if (!p) return;
   setPath(store.state, p, e.target.value);
+  e.target.classList.toggle("nr", e.target.value.trim() === "NR");
+  if (e.target.classList.contains("num")) alignDecimals(e.target.closest("table.grid")?.parentElement);
   if (store.errors[p]) {
     delete store.errors[p];
     e.target.classList.remove("invalid");
@@ -167,15 +170,15 @@ function prevFor(factory, list, path) {
 
 /* ── 结构增删 / 折叠 ── */
 formEl.addEventListener("click", (e) => {
-  const cbtn = e.target.closest("[data-collapse]");
+  const btn = e.target.closest("[data-action]");
+  /* 整条标题栏都可折叠；标题栏内的删除按钮优先按动作处理 */
+  const cbtn = !btn && e.target.closest("[data-collapse]");
   if (cbtn) {
     const path = cbtn.dataset.collapse;
     store.collapsed.has(path) ? store.collapsed.delete(path) : store.collapsed.add(path);
     renderForm();
     return;
   }
-
-  const btn = e.target.closest("[data-action]");
   if (!btn) return;
   const { path, factory } = btn.dataset;
 
@@ -234,5 +237,6 @@ window.addEventListener("form:rerender", () => renderForm());
 
 initCombobox();
 initFloatbar();
+initPrefs();
 initDrafts();
 renderForm();

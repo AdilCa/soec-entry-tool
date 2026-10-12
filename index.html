@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOEC 数据库 · 文献录入</title>
+<!--
+  注意：本项目使用 ES Modules，需通过 HTTP 访问（在线预览或本地 python3 -m http.server），
+  双击 file:// 打开会被浏览器安全策略拦截。
+-->
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="bar">
+    <div class="brand">SOEC 数据录入 <span>/ database entry</span></div>
+    <div class="top-actions">
+      <button class="btn-ghost" id="importBtn">导入 JSON</button>
+      <input type="file" id="importFile" accept=".json,application/json" hidden>
+      <button class="btn-ghost" id="resetBtn">清空重置</button>
+      <button class="btn" id="exportBtn">导出 .json</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <div class="page-title">
+    <h1 class="serif">文献录入</h1>
+    <p>数值字段未报道时保持 <span class="mono">NR</span>；缓冲层未使用填 <span class="mono">none</span>，未提及保持 <span class="mono">NR</span>。带 <span class="req-inline">*</span> 为必填。字段值请使用英文。</p>
+  </div>
+  <div id="form"></div>
+</main>
+
+<div class="fab-group">
+  <button class="fab fab-top" id="fabTop" title="回到顶部">↑</button>
+  <button class="fab" id="fabDrafts" title="自动保存的草稿">草稿箱</button>
+  <button class="fab" id="fabCollapseAll" title="折叠所有模块">折叠全部</button>
+  <button class="fab" id="fabExpandAll" title="展开所有模块">展开全部</button>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

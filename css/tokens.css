@@ -1,0 +1,13 @@
+:root {
+  --bg: #fafafa;
+  --ink: #171717;
+  --muted: #737373;
+  --line: #e5e5e5;
+  --accent: #16a34a;
+  --error: #b91c1c;
+  --surface: #ffffff;
+  --radius: 6px;
+  --font-sans: -apple-system, "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+  --font-serif: Georgia, "Songti SC", "Noto Serif SC", serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}

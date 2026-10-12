@@ -1,0 +1,115 @@
+/* ── 记忆候选下拉 ─────────────────────── */
+.combo-dd {
+  position: fixed; z-index: 50; background: var(--surface);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  max-height: 240px; overflow: auto; min-width: 200px;
+  box-shadow: none;
+}
+.combo-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 12px; font-size: 13px; cursor: pointer; gap: 12px;
+}
+.combo-item .v { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.combo-item.active, .combo-item:hover { background: var(--bg); }
+.combo-item .x {
+  color: var(--muted); font-size: 12px; padding: 0 2px; flex-shrink: 0;
+  border: none; background: none; cursor: pointer; font-family: inherit;
+}
+.combo-item .x:hover { color: var(--error); }
+.combo-empty { padding: 8px 12px; font-size: 12px; color: var(--muted); }
+
+/* ── 弹层 ─────────────────────────────── */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(23,23,23,.32);
+  z-index: 40; display: flex; align-items: center; justify-content: center;
+  padding: 32px;
+  animation: bd-in .18s ease-out;
+}
+.modal {
+  background: var(--surface); border-radius: 8px; width: 720px; max-width: 100%;
+  max-height: calc(100vh - 96px); display: flex; flex-direction: column;
+  animation: modal-in .22s ease-out;
+}
+@keyframes bd-in { from { opacity: 0; } }
+@keyframes modal-in { from { opacity: 0; transform: translateY(10px); } }
+.modal-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; border-bottom: 1px solid var(--line);
+}
+.modal-head h2 { font-size: 16px; font-weight: 600; }
+.modal-close {
+  border: none; background: none; cursor: pointer; font-size: 18px;
+  color: var(--muted); font-family: inherit; line-height: 1;
+}
+.modal-close:hover { color: var(--ink); }
+.modal-body { padding: 20px 24px; overflow: auto; }
+.modal-foot {
+  display: flex; justify-content: flex-end; gap: 10px;
+  padding: 16px 24px; border-top: 1px solid var(--line);
+}
+
+/* ── 导出检查清单 ─────────────────────── */
+.check-list { margin-bottom: 16px; }
+.check-item {
+  display: flex; gap: 8px; font-size: 13px; padding: 6px 0;
+  border-bottom: 1px solid var(--line); align-items: baseline;
+}
+.check-item:last-child { border-bottom: none; }
+.check-item .k { color: var(--muted); flex-shrink: 0; }
+.check-item.bad .k, .check-item.bad .v { color: var(--error); }
+.check-item.ok .v { color: var(--muted); }
+.check-note { font-size: 12px; color: var(--muted); margin: 12px 0 16px; }
+.json-box {
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius);
+  max-height: 320px; overflow: auto;
+}
+.json-box pre { padding: 16px 20px; font-size: 12.5px; line-height: 1.7; white-space: pre; }
+.json-box .key { color: var(--ink); }
+.json-box .str { color: #525252; }
+.json-box .nr { color: var(--muted); font-style: italic; }
+.json-box .num { color: var(--accent); }
+.json-box .bool { color: var(--muted); }
+
+/* ── 右下角浮动按钮组 ─────────────────── */
+.fab-group {
+  position: fixed; right: 24px; bottom: 24px; z-index: 30;
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
+}
+.fab {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); cursor: pointer; font-family: inherit;
+  font-size: 12px; color: var(--muted); padding: 6px 12px;
+  transition: color .15s ease-out, border-color .15s ease-out,
+              opacity .2s ease-out, transform .2s ease-out;
+}
+.fab:hover { color: var(--ink); border-color: var(--ink); }
+.fab-top {
+  opacity: 0; pointer-events: none; transform: translateY(4px);
+  width: 32px; height: 32px; padding: 0; font-size: 14px;
+  align-self: flex-end;
+}
+.fab-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* ── 草稿箱列表 ─────────────────────── */
+.draft-list { display: flex; flex-direction: column; }
+.draft-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+}
+.draft-item:last-child { border-bottom: none; }
+.draft-item .v { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.draft-item .t { color: var(--muted); font-size: 12px; font-family: var(--font-mono); }
+
+/* ── Toast ────────────────────────────── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(8px);
+  background: var(--ink); color: var(--bg); font-size: 13px;
+  padding: 10px 20px; border-radius: var(--radius); opacity: 0;
+  transition: opacity .2s ease-out, transform .2s ease-out; pointer-events: none;
+  z-index: 60;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 720px) {
+  .modal-backdrop { padding: 16px; }
+}
